@@ -22,10 +22,20 @@ def getMacAddr(ip):
                     ARP(pdst=ip), timeout=3, verbose=0)
     if result:
         return result[0][1].src
-
+    
+def restore(target_ip, host_ip, verbose=True):
+    #must reset everything or else the targets internet will crash
+    #and the target will know an attack has happened
+    target_mac = getMacAddr(target_ip) # the real MAC address of target
+    host_mac = getMacAddr(host_ip)#the real MAC address of spoofed router
+    arp_response = ARP(pdst=target_ip, hwdst=target_mac, psrc=host_ip, hwsrc=host_mac) # crafting the restoring packet
+    send(arp_response, verbose=0, count=7)# sending the restoring packet
+    if verbose:
+        print("[+] Sent to {} : {} is-at {}".format(target_ip, host_ip, host_mac))
 
 # for testing
-#targetIP = '192.168.1.1'
+targetIP = '192.168.0.1'
 
-# enable_linuxip()
-# print(getMacAddr(targetIP))
+#enable_linuxip()
+print(getMacAddr(targetIP))
+restore('192.168.0.63',targetIP,True)
