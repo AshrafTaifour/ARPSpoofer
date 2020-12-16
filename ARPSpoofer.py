@@ -3,7 +3,7 @@ import argparse
 import time
 import os
 import sys
-
+import subprocess
 
 def enable_linuxip():
     # EnablesIP Forward in linux
@@ -51,9 +51,11 @@ def restore(targetIP, hostIP, verbose=True):
         print(f'[+] Sent to {targetIP} : {hostIP} is-at {host_mac}')
 
 # for testing
+sys.stdout = open("output.txt", "w+")
+        
 targetIP = '192.168.1.1'
 
-enable_linuxip()
+#enable_linuxip()
 print(getMacAddr(targetIP))
 #restore('192.168.0.63',targetIP,True)
 
