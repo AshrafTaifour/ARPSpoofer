@@ -14,6 +14,12 @@ HOST_IP = '192.168.1.144' #this is the address we're pretending to be
 ROUTER_IP = '192.168.1.1'
 YOUR_ROUTER_MACADDR = '94:10:3e:08:be:a2' #use your own router's mac address to check if the function is working properly.
 
+#This will be used for the spoof function testing
+
+local_mac = ARP().hwsrc
+SPOOF_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} us-at {local_mac}'
+
+
 enable_linuxip()
 
 class TestARPSpoofer(unittest.TestCase):
@@ -24,6 +30,14 @@ class TestARPSpoofer(unittest.TestCase):
         actual_ret = getMacAddr(ROUTER_IP)
 
         #print(f'actual result = {actual_ret}, expected result = {exp_ret}')
+
+        assert exp_ret == actual_ret
+
+
+
+    def test_spoof(self):
+        exp_ret = SPOOF_TEST_STRING
+        actual_ret = spoof(ROUTER_IP, HOST_IP)
 
         assert exp_ret == actual_ret
 
