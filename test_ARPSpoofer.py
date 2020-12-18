@@ -18,7 +18,7 @@ YOUR_ROUTER_MACADDR = '16:98:7d:76:b3:5d' #use your own router's mac address to 
 
 local_mac = ARP().hwsrc
 host_mac = getMacAddr(HOST_IP)
-SPOOF_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} us-at {local_mac}'
+SPOOF_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} is-at {local_mac}'
 RESTORE_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} is-at {host_mac}'
 
 
