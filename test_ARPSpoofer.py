@@ -11,16 +11,18 @@ from ARPSpoofer import enable_linuxip, getMacAddr, spoof, restore
 
 TARGET_IP = '192.168.1.123'
 HOST_IP = '192.168.1.144' #this is the address we're pretending to be
-ROUTER_IP = '192.168.1.1'
-YOUR_ROUTER_MACADDR = '94:10:3e:08:be:a2' #use your own router's mac address to check if the function is working properly.
+ROUTER_IP = '192.168.0.1'
+YOUR_ROUTER_MACADDR = '16:98:7d:76:b3:5d' #use your own router's mac address to check if the function is working properly.
 
 #This will be used for the spoof function testing
 
 local_mac = ARP().hwsrc
+host_mac = getMacAddr(HOST_IP)
 SPOOF_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} us-at {local_mac}'
+RESTORE_TEST_STRING = f'[+] Sent to {ROUTER_IP} : {HOST_IP} is-at {host_mac}'
 
 
-enable_linuxip()
+#enable_linuxip()
 
 class TestARPSpoofer(unittest.TestCase):
 
@@ -42,7 +44,13 @@ class TestARPSpoofer(unittest.TestCase):
         assert exp_ret == actual_ret
 
 
+    def test_restore(self):
+        exp_ret = RESTORE_TEST_STRING
+        actual_ret = restore(ROUTER_IP, HOST_IP)
+        
+        assert exp_ret == actual_ret
 
+        
 if __name__ == '__main__':
     unittest.main()
 

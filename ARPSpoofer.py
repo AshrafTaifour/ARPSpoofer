@@ -62,8 +62,8 @@ sys.stdout = open("output.txt", "w+")
         
 targetIP = '192.168.1.1'
 
-enable_linuxip()
-print(getMacAddr(targetIP))
+#enable_linuxip()
+print(getMacAddr('192.168.0.1'))
 restore('192.168.0.63',targetIP,True)
 
 spoof(targetIP, '192.168.1.144')
