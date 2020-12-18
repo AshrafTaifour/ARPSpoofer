@@ -38,7 +38,7 @@ def spoof(targetIP, hostIP, verbose=True) -> str:
     if verbose:
         #obtain MAC address of our default interface
         myMac = ARP().hwsrc
-        ret_str = f'[+] Sent to {targetIP} : {hostIP} us-at {myMac}'
+        ret_str = f'[+] Sent to {targetIP} : {hostIP} is-at {myMac}'
         print(ret_str)
         return ret_str
 
