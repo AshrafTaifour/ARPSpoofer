@@ -1,0 +1,36 @@
+#This only works on linux, this program has to be run as root user
+
+from scapy.all import Ether, ARP, srp, send
+import argparse
+import time
+import os
+import sys
+import subprocess
+import unittest
+from ARPSpoofer import enable_linuxip, getMacAddr, spoof, restore
+
+TARGET_IP = '192.168.1.123'
+HOST_IP = '192.168.1.144' #this is the address we're pretending to be
+ROUTER_IP = '192.168.1.1'
+YOUR_ROUTER_MACADDR = '94:10:3e:08:be:a2' #use your own router's mac address to check if the function is working properly.
+
+enable_linuxip()
+
+class TestARPSpoofer(unittest.TestCase):
+
+
+    def test_getMacAddr(self):
+        exp_ret = YOUR_ROUTER_MACADDR
+        actual_ret = getMacAddr(ROUTER_IP)
+
+        #print(f'actual result = {actual_ret}, expected result = {exp_ret}')
+
+        assert exp_ret == actual_ret
+
+
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+#TestARPSpoofer.test_getMacAddr(1)
