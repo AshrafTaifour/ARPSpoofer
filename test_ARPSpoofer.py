@@ -12,8 +12,8 @@ from ARPSpoofer import enable_linuxip, getMacAddr, spoof, restore
 
 
 TARGET_IP = '192.168.1.123'
-HOST_IP = '192.168.0.63' #this is the address we're pretending to be
-ROUTER_IP = '192.168.0.1'
+HOST_IP = '192.168.1.169' #this is the address we're pretending to be
+ROUTER_IP = '192.168.1.1'
 YOUR_ROUTER_MACADDR = '94:10:3e:08:be:a2' #use your own router's mac address to check if the function is working properly.
 
 

@@ -1,7 +1,13 @@
 from scapy.all import Ether, ARP, srp, sniff, conf
-from ARPSpoofer import getMacAddr
 import sys
 
+
+
+def getMac(ip):
+    #will return the mac address for IP, this function has a few differences from the ARPSpoofer.py getMacAddr function
+    p = Ether(dst ='ff:ff:ff:ff:ff:ff')/ARP(pdst=ip)
+    result = srp(p, timeout=3, verbose=False)[0]
+    return result[0][1].hwsrc
 
 def isARPReal(pkt):
     if pkt.haslayer(ARP):  # if ARP packet
