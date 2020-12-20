@@ -61,15 +61,18 @@ def restore(targetIP, hostIP, verbose=True) -> str:
 sys.stdout = open("output.txt", "w+")
         
 targetIP = '192.168.0.1'
+hostIP = '192.168.0.63'
 
 #enable_linuxip()
-print(getMacAddr('192.168.0.1'))
+print(getMacAddr(hostIP))
 
-spoof(targetIP, '192.168.0.63',True)
-spoof('192.168.0.63',targetIP,True)
+spoof(targetIP, hostIP,True)
+spoof(hostIP,targetIP,True)
 
-restore(targetIP,'192.168.0.63',True)
-restore('192.168.0.63',targetIP,True)
+time.sleep(1)
+
+restore(targetIP,hostIP,True)
+restore(hostIP,targetIP,True)
 
 
 
