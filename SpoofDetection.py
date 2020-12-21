@@ -15,7 +15,7 @@ def isARPReal(pkt):
         if pkt[ARP].op == 2:
             try:
                 # gets real MAC address of sender
-                actualMac = getMacAddr(pkt[ARP].psrc)
+                actualMac = getMac(pkt[ARP].psrc)
                 # gets MAC address from the packet that is passed
                 responseMac = pkt[ARP].hwsrc
 
