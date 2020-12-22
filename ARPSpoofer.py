@@ -70,6 +70,6 @@ def main():
         print("exiting")
         restore(targetIP,hostIP,True)
         restore(hostIP,targetIP,True)
-main()
+#main() #uncomment this to run the program
 
 
