@@ -1,3 +1,5 @@
+This project has been created by Ashraf Taifour and Humzah Okadia
+
 #Instructions on how to execute the program properly:
 #Choose a target machine and a router on which you would like to perform this attack.
 
