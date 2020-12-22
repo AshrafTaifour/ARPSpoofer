@@ -70,6 +70,6 @@ def main():
         print("exiting")
         restore(targetIP,hostIP,True)
         restore(hostIP,targetIP,True)
-#main() #uncomment this to run the program
+#main() #uncomment this to run the program - HAVE TO COMMENT IT OUT WHEN RUNNING test_ARPSpoofer.py
 
 
