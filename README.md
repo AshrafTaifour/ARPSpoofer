@@ -13,7 +13,7 @@
 3) To exit this program press CTRL-C it may require a couple of tries, if it does not exit keep pressing CTRL-C.
 4) This program print everything to a file called output.txt not the system out
 
-# As for the test_ARPSpoofer.py run it using the following command: sudo python3 -m unittest test_ARPSpoofer.py
+#As for the test_ARPSpoofer.py run it using the following command: sudo python3 -m unittest test_ARPSpoofer.py
 
 
 
